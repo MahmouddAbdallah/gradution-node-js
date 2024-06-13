@@ -19,7 +19,8 @@ if (process.env.NODE_ENV == 'development') {
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-    origin: true
+    origin: true,
+    credentials: true
 }))
 //routing 
 app.use('/auth', authRouter)
