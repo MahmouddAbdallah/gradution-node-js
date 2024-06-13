@@ -4,7 +4,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import connectDB from './src/config/connectDB';
 import authRouter from './src/routes/auth'
-
+import cors from 'cors'
 // create app
 const app = express();
 
@@ -18,7 +18,9 @@ if (process.env.NODE_ENV == 'development') {
 //middlewares 
 app.use(express.json());
 app.use(cookieParser())
-
+app.use(cors({
+    origin: true
+}))
 //routing 
 app.use('/auth', authRouter)
 
