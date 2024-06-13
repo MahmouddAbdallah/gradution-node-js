@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import connectDB from './src/config/connectDB';
 import authRouter from './src/routes/auth'
+import verifyRouter from './src/routes/verifyme'
 import cors from 'cors'
 // create app
 const app = express();
@@ -24,7 +25,7 @@ app.use(cors({
 }))
 //routing 
 app.use('/auth', authRouter)
-
+app.use('/api', verifyRouter)
 
 
 //not found 
