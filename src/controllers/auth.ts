@@ -28,7 +28,7 @@ export const signUp = async (req: Request, res: Response) => {
             .cookie('token',
                 token,
                 {
-                    httpOnly: true,
+                    // httpOnly: true,
                     secure: process.env.NODE_ENV == 'production',
                     maxAge: 22089963090
                 }).json({
@@ -67,7 +67,7 @@ export const doctorSignUp = async (req: Request, res: Response) => {
             .cookie('token',
                 token,
                 {
-                    httpOnly: true,
+                    // httpOnly: true,
                     secure: process.env.NODE_ENV == 'production',
                     maxAge: 22089963090
                 }).json({
@@ -102,7 +102,7 @@ export const pharmacistSignUp = async (req: Request, res: Response) => {
             .cookie('token',
                 token,
                 {
-                    httpOnly: true,
+                    // httpOnly: true,
                     secure: process.env.NODE_ENV == 'production',
                     maxAge: 22089963090
                 }).json({
@@ -148,7 +148,7 @@ export const signIn = async (req: Request, res: Response) => {
             .cookie('token',
                 token,
                 {
-                    httpOnly: true,
+                    // httpOnly: true,
                     secure: process.env.NODE_ENV == 'production',
                     maxAge: 22089963090
                 }).json({
