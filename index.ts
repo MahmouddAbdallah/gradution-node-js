@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import connectDB from './src/config/connectDB';
 import authRouter from './src/routes/auth'
+import blogRouter from './src/routes/blogRouting'
 import verifyRouter from './src/routes/verifyme'
 import cors from 'cors'
 // create app
@@ -26,6 +27,7 @@ app.use(cors({
 //routing 
 app.use('/auth', authRouter)
 app.use('/api', verifyRouter)
+app.use('/api', blogRouter)
 
 
 //not found 

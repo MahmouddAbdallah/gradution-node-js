@@ -23,13 +23,13 @@ export const protectionAuth = async (req: Request, res: Response, next: NextFunc
 
         let user: any = {};
         if (role == 'user') {
-            user = await User.findById(id).select("-password -__v");
+            user = await User.findById(id).select("-password -__v -updatedAt -createdAt");
         }
         else if (role == 'doctor') {
-            user = await Doctor.findById(id).select("-password -__v")
+            user = await Doctor.findById(id).select("-password -__v -updatedAt -createdAt")
         }
         else if (role == 'pharmacist') {
-            user = await Pharmacist.findById(id).select("-password -__v")
+            user = await Pharmacist.findById(id).select("-password -__v -updatedAt -createdAt")
         }
         if (!user) return res.status(400).json({ message: 'This account not found, please sign up' })
         else {

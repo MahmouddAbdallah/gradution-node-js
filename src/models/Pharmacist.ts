@@ -23,7 +23,7 @@ const pharmacistSchema = new mongoose.Schema({
         type: String,
         require: [true, "The Country field is required"]
     },
-})
+}, { timestamps: true })
 
 const Pharmacist = mongoose.model('Pharmacist', pharmacistSchema);
 export default Pharmacist

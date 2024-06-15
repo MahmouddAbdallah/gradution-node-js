@@ -28,7 +28,7 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         enum: doctorSpecialization
     }
-})
+}, { timestamps: true })
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 export default Doctor
