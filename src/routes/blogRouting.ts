@@ -16,6 +16,6 @@ router.route('/blog/article')
 
 router.get('/blog/article/:id', fetchBlogArticle)
 
-router.post('/blog/article/section', upload.array('img', 1), createBlogSection)
+router.post('/blog/article/section', protectionAuth, upload.array('img', 1), createBlogSection)
 
 export default router

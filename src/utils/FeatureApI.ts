@@ -10,7 +10,7 @@ class FeatureApI {
     filter() {
         const query = JSON.stringify(this.req.query);
         const query1 = JSON.parse(query.replace(/\b(gte|gt|lte|eq)\b/g, (_) => `$${_}`))
-        const arrData = ['field', 'sort', 'limit', 'keyword', 'sort', 'select', 'page']
+        const arrData = ['fields', 'sort', 'limit', 'keyword', 'sort', 'select', 'page']
         arrData.forEach((element) => {
             delete query1[element];
         })
@@ -29,16 +29,14 @@ class FeatureApI {
         this.model = this.model.populate(model, select)
         return this
     }
-    field() {
-        let fields = this.req.query.fields || '-createdAt';
-        fields = (fields as string).split(',').join(' ');
+    field(select?: string) {
+        let fields = this.req.query.fields;
         if (fields) {
-            this.model = this.model.select(fields)
+            fields = (fields as string).split(',').join(' ');
+        } else if (!fields && select) {
+            fields = select
         }
-        return this
-    }
-    select(items: string) {
-        this.model = this.model.select(items)
+        this.model = this.model.select(fields)
         return this
     }
     limit() {

@@ -34,8 +34,9 @@ export const fetchBlogArticles = async (req: Request, res: Response) => {
         const classModel = new FeatureApI(req, BlogArticle)
             .filter()
             .sort()
-            .select('-user -createdAt -updatedAt -__v')
+            .field('-user')
             .limit()
+            .populate('category', 'name')
         const articles = await classModel.model;
         return res.status(200).json({ message: 'fetch Successfully!', articles })
 
