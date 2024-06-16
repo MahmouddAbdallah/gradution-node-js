@@ -24,6 +24,8 @@ export const fetchBlogCategory = async (req: Request, res: Response) => {
         const classModel = new FeatureApI(req, BlogCategory)
             .filter()
             .sort()
+            .field()
+            .limit()
         const blogCategories = await classModel.model;
         return res.status(200).json({ message: 'fetch Successfully!', categories: blogCategories })
 
