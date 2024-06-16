@@ -63,13 +63,15 @@ export const fetchBlogArticle = async (req: Request, res: Response) => {
         const sections = await BlogSection.find({ article: id }).select("-__v -updatedAt -createdAt")
         if (article)
             return res.status(200).json({
-                _id: article._id,
-                title: article.title,
-                description: article.description,
-                img: article.img,
-                createdAt: article.createdAt,
-                user,
-                content: sections
+                article: {
+                    _id: article._id,
+                    title: article.title,
+                    description: article.description,
+                    img: article.img,
+                    createdAt: article.createdAt,
+                    user,
+                    content: sections
+                }
             })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
