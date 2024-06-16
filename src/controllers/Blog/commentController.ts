@@ -36,10 +36,9 @@ export const fetchBlogComment = async (req: Request, res: Response) => {
         const newComments = await Promise.all(comments.map(
             async (comment) => {
                 let user: any = {};
-
                 if (!comment.user) return false;
 
-                if (article?.user?.role == 'user') {
+                if (comment?.user?.role == 'user') {
                     user = await User.findById(comment.user._id).select("-password -__v -updatedAt -createdAt");
                 }
                 else if (comment?.user?.role == 'doctor') {
@@ -50,10 +49,7 @@ export const fetchBlogComment = async (req: Request, res: Response) => {
                 }
                 return {
                     text: comment.text,
-                    user: {
-                        ...user._doc,
-                        role: comment.user.role
-                    },
+                    user,
                     createdAt: comment.createdAt
                 };
             }
