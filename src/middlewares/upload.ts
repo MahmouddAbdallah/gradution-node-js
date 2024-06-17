@@ -56,3 +56,22 @@ export const uploadImagesToCloudinary = async (files: Express.Multer.File[]): Pr
         throw error;
     }
 };
+function extractPublicIdFromUrl(url: any) {
+    const matches = url.match(/\/upload\/(?:v\d+\/)?(?:[^/]+\/)*([^\.]+)/);
+    return matches ? matches[1] : null;
+}
+export default async function deleteImagesToCloudinary(url: any) {
+    try {
+        cloudinary.v2.config({
+            cloud_name: process.env.CLOUDINARY_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
+        });
+        const data = await cloudinary.v2.uploader.destroy(extractPublicIdFromUrl(url as any))
+        if (data.result == 'ok')
+            return true
+        else return false
+    } catch (error) {
+        return false;
+    }
+}

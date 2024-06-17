@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import Pharmacist from "../models/Pharmacist";
 import Doctor from "../models/Doctor";
 import User from "../models/User";
-import { uploadImagesToCloudinary } from "../middlewares/upload";
+import deleteImagesToCloudinary, { uploadImagesToCloudinary } from "../middlewares/upload";
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
@@ -11,7 +11,14 @@ export const updateUser = async (req: Request, res: Response) => {
         const imgFiles = req.files as Express.Multer.File[];
         let picture: string[] = [];
         if (imgFiles) {
-            picture = await uploadImagesToCloudinary(imgFiles);
+            if (req.user.picture) {
+                const data = await deleteImagesToCloudinary(req.user.picture)
+                if (data)
+                    picture = await uploadImagesToCloudinary(imgFiles);
+                else res.status(400).json({ message: 'Try later', })
+            }
+            else
+                picture = await uploadImagesToCloudinary(imgFiles);
         }
         const user = await User.findByIdAndUpdate(id, {
             ...body,
@@ -31,7 +38,14 @@ export const updatePharmacist = async (req: Request, res: Response) => {
         const imgFiles = req.files as Express.Multer.File[];
         let picture: string[] = []
         if (imgFiles) {
-            picture = await uploadImagesToCloudinary(imgFiles);
+            if (req.user.picture) {
+                const data = await deleteImagesToCloudinary(req.user.picture)
+                if (data)
+                    picture = await uploadImagesToCloudinary(imgFiles);
+                else res.status(400).json({ message: 'Try later', })
+            }
+            else
+                picture = await uploadImagesToCloudinary(imgFiles);
         }
         const pharmacist = await Pharmacist.findByIdAndUpdate(id, {
             ...body,
@@ -50,7 +64,14 @@ export const updateDoctor = async (req: Request, res: Response) => {
         const imgFiles = req.files as Express.Multer.File[];
         let picture: string[] = []
         if (imgFiles) {
-            picture = await uploadImagesToCloudinary(imgFiles);
+            if (req.user.picture) {
+                const data = await deleteImagesToCloudinary(req.user.picture)
+                if (data)
+                    picture = await uploadImagesToCloudinary(imgFiles);
+                else res.status(400).json({ message: 'Try later', })
+            }
+            else
+                picture = await uploadImagesToCloudinary(imgFiles);
         }
         const doctor = await Doctor.findByIdAndUpdate(id, {
             ...body,
