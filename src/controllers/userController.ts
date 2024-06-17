@@ -83,3 +83,27 @@ export const updateDoctor = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
+
+export const fetchUserOrDoctorOrPharmacist = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id)
+        if (user) {
+            return res.status(200).json({ user })
+        } else {
+            const doctor = await Doctor.findById(id)
+            if (doctor) {
+                return res.status(200).json({ user: doctor })
+            } else {
+                const pharmacist = await Pharmacist.findById(id)
+                if (pharmacist) {
+                    return res.status(200).json({ user: pharmacist })
+                } else {
+                    return res.status(400).json({ message: 'This account is not exist' })
+                }
+            }
+        }
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
