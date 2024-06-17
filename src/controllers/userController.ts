@@ -38,7 +38,7 @@ export const updatePharmacist = async (req: Request, res: Response) => {
             picture: picture[0]
         }, { new: true })
         if (!pharmacist) return res.status(400).json({ message: "There is no account like this" })
-        else return res.status(200).json({ pharmacist, message: "Successfuly updated!!" })
+        else return res.status(200).json({ user: pharmacist, message: "Successfuly updated!!" })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
@@ -57,7 +57,7 @@ export const updateDoctor = async (req: Request, res: Response) => {
             picture: picture[0]
         }, { new: true })
         if (!doctor) return res.status(400).json({ message: "There is no account like this" })
-        else return res.status(200).json({ doctor, message: "Successfuly updated!!" })
+        else return res.status(200).json({ user: doctor, message: "Successfuly updated!!" })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
