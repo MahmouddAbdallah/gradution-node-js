@@ -15,6 +15,10 @@ const pharmacistSchema = new mongoose.Schema({
         type: String,
         require: [true, "The password field is required"]
     },
+    role: {
+        type: String,
+        default: "pharmacist"
+    },
     country: {
         type: String,
         require: [true, "The Country field is required"]

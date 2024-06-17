@@ -23,6 +23,10 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         require: [true, "The Country field is required"]
     },
+    role: {
+        type: String,
+        default: "doctor"
+    },
     picture: String,
     specialization: {
         type: String,

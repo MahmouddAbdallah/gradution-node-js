@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import connectDB from './src/config/connectDB';
 import authRouter from './src/routes/auth'
 import blogRouter from './src/routes/blogRouting'
+import userRouting from './src/routes/userRouting'
 import verifyRouter from './src/routes/verifyme'
 import cors from 'cors'
 // create app
@@ -28,6 +29,8 @@ app.use(cors({
 app.use('/auth', authRouter)
 app.use('/api', verifyRouter)
 app.use('/api', blogRouter)
+app.use('/api', blogRouter)
+app.use('/api', userRouting)
 
 
 //not found 
