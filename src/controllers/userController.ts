@@ -28,8 +28,14 @@ export const updatePharmacist = async (req: Request, res: Response) => {
     try {
         const body = req.body;
         const id = req.user._id;
+        const imgFiles = req.files as Express.Multer.File[];
+        let picture: string[] = []
+        if (imgFiles) {
+            picture = await uploadImagesToCloudinary(imgFiles);
+        }
         const pharmacist = await Pharmacist.findByIdAndUpdate(id, {
-            ...body
+            ...body,
+            picture: picture[0]
         }, { new: true })
         if (!pharmacist) return res.status(400).json({ message: "There is no account like this" })
         else return res.status(200).json({ pharmacist, message: "Successfuly updated!!" })
@@ -41,8 +47,14 @@ export const updateDoctor = async (req: Request, res: Response) => {
     try {
         const body = req.body;
         const id = req.user._id;
+        const imgFiles = req.files as Express.Multer.File[];
+        let picture: string[] = []
+        if (imgFiles) {
+            picture = await uploadImagesToCloudinary(imgFiles);
+        }
         const doctor = await Doctor.findByIdAndUpdate(id, {
-            ...body
+            ...body,
+            picture: picture[0]
         }, { new: true })
         if (!doctor) return res.status(400).json({ message: "There is no account like this" })
         else return res.status(200).json({ doctor, message: "Successfuly updated!!" })
