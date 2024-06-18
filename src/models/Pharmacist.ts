@@ -23,6 +23,10 @@ const pharmacistSchema = new mongoose.Schema({
         type: String,
         require: [true, "The Country field is required"]
     },
+    gender: {
+        type: String,
+        enum: ['male', 'female']
+    },
     Phone: {
         type: String,
         require: [true, "The Country field is required"]

@@ -7,7 +7,13 @@ import Pharmacist from "../models/Pharmacist";
 declare global {
     namespace Express {
         interface Request {
-            user: any;
+            user: {
+                _id: string,
+                email: string,
+                name: string,
+                role: string,
+                picture: string
+            };
             role: string
         }
     }

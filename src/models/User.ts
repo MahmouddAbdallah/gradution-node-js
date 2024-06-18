@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: [true, "The password field is required"]
     },
+    gender: {
+        type: String,
+        enum: ['male', 'female']
+    },
     role: {
         type: String,
         enum: ['admin', 'user'],

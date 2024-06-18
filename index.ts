@@ -7,6 +7,7 @@ import authRouter from './src/routes/auth'
 import blogRouter from './src/routes/blogRouting'
 import userRouting from './src/routes/userRouting'
 import verifyRouter from './src/routes/verifyme'
+import bioRouter from './src/routes/bioRouting'
 import appointmentRouter from './src/routes/appointmentRouting'
 import cors from 'cors'
 // create app
@@ -33,6 +34,7 @@ app.use('/api', blogRouter)
 app.use('/api', blogRouter)
 app.use('/api', userRouting)
 app.use('/api', appointmentRouter)
+app.use('/api', bioRouter)
 
 
 //not found 

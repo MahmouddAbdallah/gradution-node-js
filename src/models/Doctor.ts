@@ -27,6 +27,10 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         default: "doctor"
     },
+    gender: {
+        type: String,
+        enum: ['male', 'female']
+    },
     picture: String,
     specialization: {
         type: String,
