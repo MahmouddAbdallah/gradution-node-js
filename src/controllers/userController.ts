@@ -87,15 +87,15 @@ export const updateDoctor = async (req: Request, res: Response) => {
 export const fetchUserOrDoctorOrPharmacist = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const user = await User.findById(id)
+        const user = await User.findById(id).select('-password -__v')
         if (user) {
             return res.status(200).json({ user })
         } else {
-            const doctor = await Doctor.findById(id)
+            const doctor = await Doctor.findById(id).select('-password -__v')
             if (doctor) {
                 return res.status(200).json({ user: doctor })
             } else {
-                const pharmacist = await Pharmacist.findById(id)
+                const pharmacist = await Pharmacist.findById(id).select('-password -__v')
                 if (pharmacist) {
                     return res.status(200).json({ user: pharmacist })
                 } else {

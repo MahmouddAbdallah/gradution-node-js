@@ -7,6 +7,7 @@ import authRouter from './src/routes/auth'
 import blogRouter from './src/routes/blogRouting'
 import userRouting from './src/routes/userRouting'
 import verifyRouter from './src/routes/verifyme'
+import appointmentRouter from './src/routes/appointmentRouting'
 import cors from 'cors'
 // create app
 const app = express();
@@ -31,6 +32,7 @@ app.use('/api', verifyRouter)
 app.use('/api', blogRouter)
 app.use('/api', blogRouter)
 app.use('/api', userRouting)
+app.use('/api', appointmentRouter)
 
 
 //not found 
