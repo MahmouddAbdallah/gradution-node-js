@@ -28,7 +28,8 @@ const bioSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         required: true,
         refPath: 'userType'
-    }
+    },
+    aboutme: String
 }, { timestamps: true })
 
 const Bio = mongoose.model('Bio', bioSchema);
