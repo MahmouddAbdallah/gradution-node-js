@@ -20,7 +20,20 @@ export const createBlogComment = async (req: Request, res: Response) => {
                 role: req.role
             },
         })
-        return res.status(201).json({ message: "Create The Article Successfully!", comment })
+
+        return res.status(201).json({
+            message: "Create The Article Successfully!", comment: {
+                _id: comment._id,
+                text: comment.text,
+                createdAt: comment.createdAt,
+                user: {
+                    _id: req.user._id,
+                    role: req.role,
+                    picture: req.user.picture
+                },
+                articleId: comment.article
+            }
+        })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }

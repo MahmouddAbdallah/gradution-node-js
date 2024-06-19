@@ -48,8 +48,8 @@ export const fetchBio = async (req: Request, res: Response) => {
         const { userId } = req.params;
         const bio = await Bio.findOneAndUpdate({
             user: userId
-        })
-        return res.status(201).json({ message: "create bio successfully!!", bio })
+        }).select("-createdAt -updatedAt -userType -user -__v")
+        return res.status(200).json({ message: "create bio successfully!!", bio })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
