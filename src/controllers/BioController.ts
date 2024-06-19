@@ -46,10 +46,10 @@ export const updateBio = async (req: Request, res: Response) => {
 export const fetchBio = async (req: Request, res: Response) => {
     try {
         const { userId } = req.params;
-        const bio = await Bio.findOneAndUpdate({
+        const bio = await Bio.find({
             user: userId
         }).select("-createdAt -updatedAt -userType -user -__v")
-        return res.status(200).json({ message: "create bio successfully!!", bio })
+        return res.status(200).json({ bio: bio[0] })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
