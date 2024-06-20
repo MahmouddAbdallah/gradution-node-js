@@ -30,3 +30,15 @@ export const updateCertification = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
+export const fetchCertification = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const certification = await Certification.findOne({
+            user: userId,
+        })
+        return res.status(200).json({ certification })
+
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
