@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Certification from "../models/certification";
+import Certification from "../models/Certification";
 import { uploadImagesToCloudinary } from "../middlewares/upload";
 
 export const updateCertification = async (req: Request, res: Response) => {
