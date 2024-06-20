@@ -26,7 +26,9 @@ export const updateBio = async (req: Request, res: Response) => {
     try {
         const body = req.body;
         const user = req.user;
-        const role = req.role
+        let role = req.role;
+        role = `${role.split('')[0].toUpperCase()}${role.slice(1)}`
+        console.log(role);
         const bio = await Bio.findOneAndUpdate(
             {
                 user: user._id
@@ -37,7 +39,7 @@ export const updateBio = async (req: Request, res: Response) => {
                 updatedAt: new Date(),
                 ...body
             }, { upsert: true, new: true })
-        return res.status(201).json({ message: "create bio successfully!!", bio })
+        return res.status(201).json({ message: "update bio successfully!!", bio })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
