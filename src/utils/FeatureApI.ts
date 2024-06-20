@@ -7,6 +7,10 @@ class FeatureApI {
         this.req = req;
         this.model = model
     }
+    find(filter: object) {
+        this.model = this.model.find(filter)
+        return this
+    }
     filter() {
         const query = JSON.stringify(this.req.query);
         const query1 = JSON.parse(query.replace(/\b(gte|gt|lte|eq)\b/g, (_) => `$${_}`))
