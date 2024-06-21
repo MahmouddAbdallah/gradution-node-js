@@ -26,8 +26,9 @@ export const fetchBlogCategory = async (req: Request, res: Response) => {
             .sort()
             .field()
             .limit()
+            .search()
         const blogCategories = await classModel.model;
-        return res.status(200).json({ message: 'fetch Successfully!', categories: blogCategories })
+        return res.status(200).json({ categories: blogCategories })
 
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
