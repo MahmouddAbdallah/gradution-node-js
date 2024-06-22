@@ -3,6 +3,7 @@ import Pharmacist from "../models/Pharmacist";
 import Doctor from "../models/Doctor";
 import User from "../models/User";
 import deleteImagesToCloudinary, { uploadImagesToCloudinary } from "../middlewares/upload";
+import FeatureApI from "../utils/FeatureApI";
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
@@ -103,6 +104,24 @@ export const fetchUserOrDoctorOrPharmacist = async (req: Request, res: Response)
                 }
             }
         }
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
+export const fetchDoctor = async (req: Request, res: Response) => {
+    try {
+        const doctorApi = new FeatureApI(req, Doctor)
+            .filter()
+            .field()
+            .field('-password -__v')
+            .sort()
+            .limit()
+            .search()
+
+        const doctor = await doctorApi.model
+
+        return res.status(200).json({ doctor })
+
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
