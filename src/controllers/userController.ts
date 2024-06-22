@@ -108,7 +108,7 @@ export const fetchUserOrDoctorOrPharmacist = async (req: Request, res: Response)
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
-export const fetchDoctor = async (req: Request, res: Response) => {
+export const fetchDoctors = async (req: Request, res: Response) => {
     try {
         const doctorApi = new FeatureApI(req, Doctor)
             .filter()
