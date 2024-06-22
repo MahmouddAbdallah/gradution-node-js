@@ -47,9 +47,9 @@ export const fetchAppointments = async (req: Request, res: Response) => {
         const role = req.role;
         let appointments: any[] = []
         if (role == 'doctor') {
-            appointments = await Appointment.find({ doctor: req.user._id }).populate("patient", 'name role email').select("-__v -doctor");
+            appointments = await Appointment.find({ doctor: req.user._id }).populate("patient", 'name role picture').select("-__v -doctor");
         } else if (role == 'user') {
-            appointments = await Appointment.find({ patient: req.user._id }).populate("doctor", 'name role email').select("-__v -user");
+            appointments = await Appointment.find({ patient: req.user._id }).populate("doctor", 'name role picture').select("-__v -user");
         }
         return res.status(200).json({ appointments });
     } catch (error: any) {
