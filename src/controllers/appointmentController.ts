@@ -21,8 +21,10 @@ export const createAppointment = async (req: Request, res: Response) => {
         if (appointment) {
             await Notification.create({
                 message: appointment.noted,
-                userType: 'User',
-                user: appointment?.doctor,
+                toType: 'Doctor',
+                to: appointment?.doctor,
+                fromType: 'User',
+                from: appointment?.patient,
                 type: 'Appointment',
                 schemaId: appointment?._id
             })
@@ -51,8 +53,10 @@ export const updateAppointment = async (req: Request, res: Response) => {
             if (user._id == appointment.patient) {
                 await Notification.create({
                     message: `Appointment updated successfully`,
-                    userType: 'Doctor',
-                    user: appointment?.doctor,
+                    toType: 'Doctor',
+                    to: appointment?.doctor,
+                    fromType: 'User',
+                    from: appointment?.patient,
                     type: 'Appointment',
                     schemaId: appointment?._id
                 })
@@ -60,8 +64,10 @@ export const updateAppointment = async (req: Request, res: Response) => {
             } else {
                 await Notification.create({
                     message: `Appointment updated successfully`,
-                    userType: 'User',
-                    user: appointment?.patient,
+                    toType: 'User',
+                    to: appointment?.patient,
+                    formType: 'Doctor',
+                    from: appointment.doctor,
                     type: 'Appointment',
                     schemaId: appointment?._id
                 })

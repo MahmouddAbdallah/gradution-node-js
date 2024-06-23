@@ -1,15 +1,25 @@
 import mongoose from "mongoose";
 
 const notificationSchema = new mongoose.Schema({
-    userType: {
+    fromType: {
         type: String,
         enum: ['User', 'Doctor', 'Pharmacist'],
         required: true
     },
-    user: {
+    toType: {
+        type: String,
+        enum: ['User', 'Doctor', 'Pharmacist'],
+        required: true
+    },
+    from: {
         type: mongoose.Schema.ObjectId,
         required: true,
-        refPath: 'userType'
+        refPath: 'fromType'
+    },
+    to: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+        refPath: 'toType'
     },
     type: {
         type: String,

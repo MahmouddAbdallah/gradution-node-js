@@ -7,12 +7,12 @@ export const fetchNotifications = async (req: Request, res: Response) => {
         const user = req.user;
         const notificationAPI = new FeatureApI(req, Notification)
             .filter()
-            .find({ user: user._id })
+            .find({ to: user._id })
             .limit()
-            .field('-updatedAt -__v')
+            .field('-updatedAt -__v -toType -to')
             .sort()
             .populate("schemaId", '-createdAt -updatedAt -__v -noted -patient -doctor')
-            .populate("user", 'name picture')
+            .populate("from", 'name picture')
             .search()
         const notification = await notificationAPI.model;
         return res.status(200).json({ notification })
@@ -24,7 +24,7 @@ export const updateNotifications = async (req: Request, res: Response) => {
     try {
         const user = req.user;
         await Notification.updateMany({
-            user: user._id
+            from: user._id
         }, {
             isRead: true
         })
@@ -37,7 +37,7 @@ export const deleteAllNotifications = async (req: Request, res: Response) => {
     try {
         const user = req.user;
         await Notification.deleteMany({
-            user: user._id
+            from: user._id
         },)
         return res.status(200).json({ message: "Deleted !!" })
     } catch (error: any) {
