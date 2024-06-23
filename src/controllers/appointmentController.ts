@@ -66,7 +66,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
                     message: `Appointment updated successfully`,
                     toType: 'User',
                     to: appointment?.patient,
-                    formType: 'Doctor',
+                    fromType: 'Doctor',
                     from: appointment.doctor,
                     type: 'Appointment',
                     schemaId: appointment?._id
