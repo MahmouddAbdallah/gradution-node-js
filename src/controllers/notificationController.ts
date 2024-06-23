@@ -7,6 +7,7 @@ export const fetchNotifications = async (req: Request, res: Response) => {
         const user = req.user;
         const notificationAPI = new FeatureApI(req, Notification)
             .filter()
+            .find({ user: user._id })
             .limit()
             .field('-updatedAt -__v')
             .sort()
