@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import Appointment from "../models/Appointment";
-import mongoose from "mongoose";
 import Notification from "../models/Notification";
 
 export const createAppointment = async (req: Request, res: Response) => {
@@ -9,14 +8,30 @@ export const createAppointment = async (req: Request, res: Response) => {
         if (!doctorId) return res.status(400).json({ message: "The doctorId feild is required" });
         if (!date) return res.status(400).json({ message: "The date feild is required" });
         if (!timeSlot) return res.status(400).json({ message: "The timeSlot feild is required" });
+        const user = req.user
         const appointment = await Appointment.create({
             date,
             timeSlot,
             doctor: doctorId,
-            patient: req.user._id,
+            patient: user._id,
             noted
         })
-        return res.status(201).json({ message: "Appointment created successfully", appointment });
+
+
+        if (appointment) {
+            await Notification.create({
+                message: appointment.noted,
+                userType: 'User',
+                user: appointment?.patient,
+                type: 'Appointment',
+                schemaId: appointment?._id
+            })
+            return res.status(200).json({ message: "Appointment create successfully", appointment });
+        } else {
+            return res.status(404).json({ message: "Appointment not found" });
+        }
+
+
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
@@ -30,8 +45,10 @@ export const updateAppointment = async (req: Request, res: Response) => {
             ...body,
             updatedAt: new Date()
         });
+
+
         if (appointment) {
-            if (new mongoose.Types.ObjectId(user._id).equals(appointment.patient)) {
+            if (user._id == appointment.patient) {
                 await Notification.create({
                     message: `Appointment updated successfully`,
                     userType: 'Doctor',
@@ -53,6 +70,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
         } else {
             return res.status(404).json({ message: "Appointment not found" });
         }
+
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
