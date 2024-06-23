@@ -22,7 +22,7 @@ export const createAppointment = async (req: Request, res: Response) => {
             await Notification.create({
                 message: appointment.noted,
                 userType: 'User',
-                user: appointment?.patient,
+                user: appointment?.doctor,
                 type: 'Appointment',
                 schemaId: appointment?._id
             })
