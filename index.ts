@@ -10,6 +10,7 @@ import verifyRouter from './src/routes/verifyme'
 import bioRouter from './src/routes/bioRouting'
 import appointmentRouter from './src/routes/appointmentRouting'
 import certificationRouter from './src/routes/certificationRouting'
+import notificationRouter from './src/routes/notificationRouting'
 import cors from 'cors'
 // create app
 const app = express();
@@ -37,6 +38,7 @@ app.use('/api', userRouting)
 app.use('/api', appointmentRouter)
 app.use('/api', bioRouter)
 app.use('/api', certificationRouter)
+app.use('/api', notificationRouter)
 
 
 //not found 

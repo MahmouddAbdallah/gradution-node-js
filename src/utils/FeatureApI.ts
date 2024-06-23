@@ -29,8 +29,12 @@ class FeatureApI {
         }
         return this
     }
-    populate(model: string, select: string) {
-        this.model = this.model.populate(model, select)
+    populate(model: string, select?: string) {
+        if (select) {
+            this.model = this.model.populate(model, select)
+        } else {
+            this.model = this.model.populate(model)
+        }
         return this
     }
     field(select?: string) {

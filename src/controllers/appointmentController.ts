@@ -1,5 +1,7 @@
 import { Request, Response } from "express"
 import Appointment from "../models/Appointment";
+import mongoose from "mongoose";
+import Notification from "../models/Notification";
 
 export const createAppointment = async (req: Request, res: Response) => {
     try {
@@ -22,12 +24,35 @@ export const createAppointment = async (req: Request, res: Response) => {
 export const updateAppointment = async (req: Request, res: Response) => {
     try {
         const body = req.body;
+        const user = req?.user;
         const { id } = req.params
         const appointment = await Appointment.findByIdAndUpdate(id, {
             ...body,
             updatedAt: new Date()
         });
-        return res.status(200).json({ message: "Appointment update successfully", appointment });
+        if (appointment) {
+            if (new mongoose.Types.ObjectId(user._id).equals(appointment.patient)) {
+                await Notification.create({
+                    message: `Appointment updated successfully`,
+                    userType: 'Doctor',
+                    user: appointment?.doctor,
+                    type: 'Appointment',
+                    schemaId: appointment?._id
+                })
+                return res.status(200).json({ message: "Appointment update successfully", appointment });
+            } else {
+                await Notification.create({
+                    message: `Appointment updated successfully`,
+                    userType: 'User',
+                    user: appointment?.patient,
+                    type: 'Appointment',
+                    schemaId: appointment?._id
+                })
+                return res.status(200).json({ message: "Appointment updated successfully", appointment });
+            }
+        } else {
+            return res.status(404).json({ message: "Appointment not found" });
+        }
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
