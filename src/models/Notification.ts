@@ -33,10 +33,11 @@ const notificationSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    schemaId: {
-        type: mongoose.Schema.ObjectId,
-        refPath: 'type'
-    }
+    status: {
+        type: String,
+        enum: ["pending", "approved", "rejected"],
+        default: "pending"
+    },
 
 }, { timestamps: true })
 

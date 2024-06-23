@@ -26,7 +26,7 @@ export const createAppointment = async (req: Request, res: Response) => {
                 fromType: 'User',
                 from: appointment?.patient,
                 type: 'Appointment',
-                schemaId: appointment?._id
+                status: appointment?.status
             })
             return res.status(200).json({ message: "Appointment create successfully", appointment });
         } else {
@@ -58,7 +58,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
                     fromType: 'User',
                     from: appointment?.patient,
                     type: 'Appointment',
-                    schemaId: appointment?._id
+                    status: appointment?.status
                 })
                 return res.status(200).json({ message: "Appointment update successfully", appointment });
             } else {
@@ -69,7 +69,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
                     fromType: 'Doctor',
                     from: appointment.doctor,
                     type: 'Appointment',
-                    schemaId: appointment?._id
+                    status: appointment?.status
                 })
                 return res.status(200).json({ message: "Appointment updated successfully", appointment });
             }
