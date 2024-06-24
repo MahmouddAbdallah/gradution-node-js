@@ -11,7 +11,6 @@ export const fetchNotifications = async (req: Request, res: Response) => {
             .limit()
             .field('-updatedAt -__v -toType -to')
             .sort()
-            .populate("schemaId", '-createdAt -updatedAt -__v -noted -patient -doctor')
             .populate("from", 'name picture')
             .search()
         const notification = await notificationAPI.model;
