@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { uploadImagesToCloudinary } from "../../middlewares/upload";
 import FeatureApI from "../../utils/FeatureApI";
 import StoreProduct from "../../models/Store/StoreProduct";
+import { createSearchData } from "../../utils/SearchSplit";
 
 export const createStoreProduct = async (req: Request, res: Response) => {
     try {
@@ -49,6 +50,7 @@ export const createStoreProduct = async (req: Request, res: Response) => {
             warning,
             ingredient
         })
+        await createSearchData(title, 'store-product')
 
         return res.status(201).json({
             product,
@@ -72,6 +74,8 @@ export const updateStoreProduct = async (req: Request, res: Response) => {
         if (!product) return res.status(404).json({
             message: "Product Not Found!"
         })
+        await createSearchData(body.title, 'store-product')
+
         return res.status(200).json({ product, message: 'Successfully updated to the prodcut' })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })

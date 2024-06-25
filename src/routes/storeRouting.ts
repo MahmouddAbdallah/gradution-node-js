@@ -29,6 +29,8 @@ router.route('/store/product/:id')
 router.route('/store/cart')
     .post(protectionAuth, createStoreCart)
     .get(protectionAuth, fetchStoreCarts)
+router.route('/store/cart/:id')
+    .post(protectionAuth, deleteStoreCart)
 
 router.get('/store/product/:categorId/category', fetchProductByCategoryId)
 router.get('/store/search', storeSearch)

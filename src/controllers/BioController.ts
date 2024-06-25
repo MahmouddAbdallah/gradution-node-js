@@ -1,12 +1,11 @@
 import { Request, Response } from "express"
 import Bio from "../models/BioUser";
+import { createSearchData } from "../utils/SearchSplit";
 
 export const creaeBio = async (req: Request, res: Response) => {
     try {
         const body = req.body;
         const user = req.user;
-        console.log(user);
-
         let role = req.role;
         role = `${role.split('')[0].toUpperCase()}${role.slice(1)}`
 
@@ -15,6 +14,7 @@ export const creaeBio = async (req: Request, res: Response) => {
             user: user._id,
             ...body
         })
+        await createSearchData(body?.location, 'location')
         return res.status(201).json({ message: "create bio successfully!!", bio })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
@@ -37,6 +37,7 @@ export const updateBio = async (req: Request, res: Response) => {
                 updatedAt: new Date(),
                 ...body
             }, { upsert: true, new: true })
+        await createSearchData(body?.location, 'location')
         return res.status(201).json({ message: "update bio successfully!!", bio })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import Doctor from '../models/Doctor';
 import Pharmacist from '../models/Pharmacist';
 import { doctorSpecialization } from '../utils/varibles';
+import { createSearchData } from '../utils/SearchSplit';
 
 export const signUp = async (req: Request, res: Response) => {
     try {
@@ -24,6 +25,7 @@ export const signUp = async (req: Request, res: Response) => {
             password: await bcrypt.hash(password, 10)
         })
         const token = jwt.sign({ id: user._id, role: "user" }, process.env.JWT_SECRET as string);
+        await createSearchData(name, 'user')
         res.status(201)
             .cookie('token',
                 token,
@@ -64,6 +66,8 @@ export const doctorSignUp = async (req: Request, res: Response) => {
             specialization
         })
         const token = jwt.sign({ id: doctor._id, role: 'doctor' }, process.env.JWT_SECRET as string);
+        await createSearchData(name, 'doctor')
+
         return res.status(201)
             .cookie('token',
                 token,
@@ -100,6 +104,7 @@ export const pharmacistSignUp = async (req: Request, res: Response) => {
             country,
         })
         const token = jwt.sign({ id: pharmacist._id, role: 'pharmacist' }, process.env.JWT_SECRET as string);
+        await createSearchData(name, 'pharmacist')
         return res.status(201)
             .cookie('token',
                 token,

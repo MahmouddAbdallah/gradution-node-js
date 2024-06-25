@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { uploadImagesToCloudinary } from "../../middlewares/upload";
 import BlogCategory from "../../models/Blog/Category";
 import FeatureApI from "../../utils/FeatureApI";
+import { createSearchData } from "../../utils/SearchSplit";
 
 export const createBlogCategory = async (req: Request, res: Response) => {
     try {
@@ -14,6 +15,7 @@ export const createBlogCategory = async (req: Request, res: Response) => {
             description,
             img: imageUrls[0]
         })
+        await createSearchData(name, 'blog-category')
         return res.status(201).json({ message: "Create The category Successfully!", category })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
