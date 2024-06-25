@@ -16,7 +16,7 @@ router.route('/store/category/:id')
     .delete(deleteStoreCategory)
 
 router.route('/store/product')
-    .post(protectionAuth, upload.array('img', 10), createStoreProduct)
+    .post(protectionAuth, upload.array('imgs', 10), createStoreProduct)
     .get(fetchStoreProducts)
 
 router.route('/store/product/:id')

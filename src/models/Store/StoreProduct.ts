@@ -32,8 +32,8 @@ const productSchema = new mongoose.Schema({
         default: 1
     },
     useTo: String,
-    warning: String,
-    ingredient: String
+    warning: [String],
+    ingredient: [String]
 }, { timestamps: true })
 const StoreProduct = mongoose.model('StoreProduct', productSchema);
 export default StoreProduct
