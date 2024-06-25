@@ -73,6 +73,20 @@ class FeatureApI {
         }
         return this
     }
+    searchProduct() {
+        const keyword = this.req.query.keyword;
+        if (keyword) {
+            this.model = this.model.find({
+                $or: [
+                    { title: { $regex: keyword, $options: 'i' } },
+                    { description: { $regex: keyword, $options: 'i' } },
+                    { warning: { $regex: keyword, $options: 'i' } },
+                    { ingredient: { $regex: keyword, $options: 'i' } },
+                ]
+            })
+        }
+        return this
+    }
 }
 
 export default FeatureApI

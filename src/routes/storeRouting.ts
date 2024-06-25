@@ -2,8 +2,9 @@ import express from 'express';
 import { protectionAuth } from '../middlewares/verifyAuth';
 import { upload } from '../middlewares/upload';
 import { createStoreCategory, deleteStoreCategory, fetchStoreCategory, fetchStoreCategorys, updateStoreCategory } from '../controllers/Store/StoreCategoryController';
-import { createStoreProduct, deleteStoreProduct, fetchStoreProduct, fetchStoreProducts, updateStoreProduct } from '../controllers/Store/StoreProduct';
+import { createStoreProduct, deleteStoreProduct, fetchProductByCategoryId, fetchStoreProduct, fetchStoreProducts, updateStoreProduct } from '../controllers/Store/StoreProduct';
 import { createStoreCart, deleteStoreCart, fetchStoreCarts } from '../controllers/Store/StoreCartController';
+import { storeSearch } from '../controllers/Store/storeSearchController';
 
 const router = express.Router();
 
@@ -29,7 +30,6 @@ router.route('/store/cart')
     .post(protectionAuth, createStoreCart)
     .get(protectionAuth, fetchStoreCarts)
 
-router.route('/store/cart/:id')
-    .get(deleteStoreCart)
-
+router.get('/store/product/:categorId/category', fetchProductByCategoryId)
+router.get('/store/search', storeSearch)
 export default router

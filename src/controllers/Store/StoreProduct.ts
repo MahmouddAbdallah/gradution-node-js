@@ -117,3 +117,22 @@ export const fetchStoreProducts = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
+
+export const fetchProductByCategoryId = async (req: Request, res: Response) => {
+    try {
+        const { categorId } = req.params;
+        const classModel = new FeatureApI(req, StoreProduct)
+            .filter()
+            .filter()
+            .sort()
+            .field()
+            .limit()
+            .search()
+            .find({ category: categorId })
+        const products = await classModel.model
+        return res.status(200).json({ products })
+
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
