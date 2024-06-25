@@ -54,6 +54,13 @@ class FeatureApI {
         }
         return this
     }
+    skip() {
+        const skip = this.req.query.skip;
+        if (skip) {
+            this.model = this.model.skip(skip)
+        }
+        return this
+    }
     search() {
         const keyword = this.req.query.keyword;
         if (keyword) {

@@ -3,15 +3,18 @@ import mongoose from "mongoose";
 const cartSchema = new mongoose.Schema({
     userType: {
         type: String,
-        enum: ['User', 'Pharmacist', 'Doctor']
+        enum: ['User', 'Pharmacist', 'Doctor'],
+        required: [true, 'Please enter the role of user']
     },
     user: {
         type: mongoose.Schema.ObjectId,
-        refPath: "userType"
+        refPath: "userType",
+        required: true
     },
     product: {
         type: mongoose.Schema.ObjectId,
-        ref: "StoreProduct"
+        ref: "StoreProduct",
+        required: true
     },
     quantity: {
         type: Number,

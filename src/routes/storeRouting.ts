@@ -3,6 +3,7 @@ import { protectionAuth } from '../middlewares/verifyAuth';
 import { upload } from '../middlewares/upload';
 import { createStoreCategory, deleteStoreCategory, fetchStoreCategory, fetchStoreCategorys, updateStoreCategory } from '../controllers/Store/StoreCategoryController';
 import { createStoreProduct, deleteStoreProduct, fetchStoreProduct, fetchStoreProducts, updateStoreProduct } from '../controllers/Store/StoreProduct';
+import { createStoreCart, deleteStoreCart, fetchStoreCarts } from '../controllers/Store/StoreCartController';
 
 const router = express.Router();
 
@@ -23,5 +24,12 @@ router.route('/store/product/:id')
     .get(fetchStoreProduct)
     .put(updateStoreProduct)
     .delete(deleteStoreProduct)
+
+router.route('/store/cart')
+    .post(protectionAuth, createStoreCart)
+    .get(protectionAuth, fetchStoreCarts)
+
+router.route('/store/cart/:id')
+    .get(deleteStoreCart)
 
 export default router

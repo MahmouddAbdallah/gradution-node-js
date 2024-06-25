@@ -20,10 +20,10 @@ export const uploadImagesToCloudinary = async (files: Express.Multer.File[]): Pr
             api_secret: process.env.CLOUDINARY_API_SECRET
         });
 
-        files.forEach(file => {
-            const sizeInMB = file.size / (1024 * 1024);
-            console.log(`Original Image Name: ${file.originalname}, Size: ${sizeInMB.toFixed(2)} MB`);
-        });
+        // files.forEach(file => {
+        //     const sizeInMB = file.size / (1024 * 1024);
+        //     console.log(`Original Image Name: ${file.originalname}, Size: ${sizeInMB.toFixed(2)} MB`);
+        // });
 
         const uploadPromises = files.map(async (file) => {
             let buffer = file.buffer;
@@ -40,8 +40,8 @@ export const uploadImagesToCloudinary = async (files: Express.Multer.File[]): Pr
                     .toBuffer();
             }
 
-            const sizeInMB = buffer.length / (1024 * 1024);
-            console.log(`Resized Image Name: ${file.originalname}, Size: ${sizeInMB.toFixed(2)} MB`);
+            // const sizeInMB = buffer.length / (1024 * 1024);
+            // console.log(`Resized Image Name: ${file.originalname}, Size: ${sizeInMB.toFixed(2)} MB`);
 
             const b64 = buffer.toString('base64');
             const dataURL = "data:" + file.mimetype + ";base64," + b64;

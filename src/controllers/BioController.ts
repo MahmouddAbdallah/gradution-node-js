@@ -9,7 +9,6 @@ export const creaeBio = async (req: Request, res: Response) => {
 
         let role = req.role;
         role = `${role.split('')[0].toUpperCase()}${role.slice(1)}`
-        console.log(role);
 
         const bio = await Bio.create({
             userType: role,
@@ -28,7 +27,6 @@ export const updateBio = async (req: Request, res: Response) => {
         const user = req.user;
         let role = req.role;
         role = `${role.split('')[0].toUpperCase()}${role.slice(1)}`
-        console.log(role);
         const bio = await Bio.findOneAndUpdate(
             {
                 user: user._id
