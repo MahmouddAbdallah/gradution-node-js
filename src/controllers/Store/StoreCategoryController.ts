@@ -15,7 +15,7 @@ export const createStoreCategory = async (req: Request, res: Response) => {
             description,
             img: imageUrls[0]
         })
-        await createSearchData(name, 'store-category')
+        await createSearchData(name, 'store')
         return res.status(201).json({ message: "Create The category Successfully!", category })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })

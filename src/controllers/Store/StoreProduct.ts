@@ -50,7 +50,7 @@ export const createStoreProduct = async (req: Request, res: Response) => {
             warning,
             ingredient
         })
-        await createSearchData(title, 'store-product')
+        await createSearchData(title, 'store')
 
         return res.status(201).json({
             product,

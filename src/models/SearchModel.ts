@@ -9,7 +9,7 @@ const searchModelSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
-}, { timestamps: true })
+})
 
 const SearchModel = mongoose.model('SearchModel', searchModelSchema);
 export default SearchModel

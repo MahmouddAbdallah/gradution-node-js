@@ -21,7 +21,7 @@ export const createBlogArticle = async (req: Request, res: Response) => {
             user: req.user._id,
             category: categoryId
         })
-        await createSearchData(title, 'blog-article')
+        await createSearchData(title, 'blog')
 
         return res.status(201).json({ message: "Create The Article Successfully!", Article })
     } catch (error: any) {
@@ -35,7 +35,7 @@ export const updateBlogArticle = async (req: Request, res: Response) => {
         const Article = await BlogArticle.findByIdAndUpdate(id, {
             ...body
         })
-        await createSearchData(body?.title, 'blog-article')
+        await createSearchData(body?.title, 'blog')
         return res.status(201).json({ message: "Update The Article Successfully!", Article })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })

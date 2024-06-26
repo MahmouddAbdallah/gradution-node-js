@@ -18,7 +18,6 @@ export const createStoreCart = async (req: Request, res: Response) => {
             price
         })
         return res.status(201).json({ message: "create cart successfully!!", cart })
-
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }

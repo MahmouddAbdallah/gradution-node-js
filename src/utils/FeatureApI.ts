@@ -47,10 +47,10 @@ class FeatureApI {
         this.model = this.model.select(fields)
         return this
     }
-    limit() {
-        const limit = this.req.query.limit;
-        if (limit) {
-            this.model = this.model.limit(limit)
+    limit(limit?: number) {
+        const limitqurey = this.req.query.limit || limit;
+        if (limitqurey) {
+            this.model = this.model.limit(limitqurey)
         }
         return this
     }

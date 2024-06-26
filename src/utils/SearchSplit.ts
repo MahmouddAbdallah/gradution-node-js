@@ -14,7 +14,10 @@ export const createSearchData = async (data: string, type: string) => {
             }
         }
     });
-
+    await SearchModel.create({
+        keyword: data,
+        type
+    })
     await Promise.all(promises);
     return true
 };
