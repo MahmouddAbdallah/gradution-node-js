@@ -12,8 +12,10 @@ import Doctor from "../models/Doctor";
 export const searchKeywordController = async (req: Request, res: Response) => {
     try {
         const classApi = new FeatureApI(req, SearchModel)
-            .search()
+            .filter()
+            .searchKeyword()
             .limit()
+            .field()
         const search = await classApi.model
         return res.status(200).json({ search })
     } catch (error: any) {

@@ -73,6 +73,17 @@ class FeatureApI {
         }
         return this
     }
+    searchKeyword() {
+        const keyword = this.req.query.keyword;
+        if (keyword) {
+            this.model = this.model.find({
+                $or: [
+                    { keyword: { $regex: keyword, $options: 'i' } }
+                ]
+            })
+        }
+        return this
+    }
     searchProduct() {
         const keyword = this.req.query.keyword;
         if (keyword) {
