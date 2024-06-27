@@ -8,6 +8,7 @@ import BlogCategory from "../models/Blog/Category";
 import User from "../models/User";
 import Pharmacist from "../models/Pharmacist";
 import Doctor from "../models/Doctor";
+import Bio from "../models/BioUser";
 
 export const searchKeywordController = async (req: Request, res: Response) => {
     try {
@@ -28,6 +29,7 @@ export const searchData = async (req: Request, res: Response) => {
     try {
         const { type, keyword } = req.query;
         let product, storeCategory, article, blogCategory, user, doctor, pharmacist: any = {}
+        let userBio, doctorBio, pharmacistBio: any = {}
         if (!keyword) {
             return res.status(400).json({ message: 'Please enter keyword' })
         }
@@ -54,7 +56,8 @@ export const searchData = async (req: Request, res: Response) => {
                 $or: [
                     { title: { $regex: keyword, $options: 'i' } },
                 ]
-            }).select('-createdAt -updatedAt -__v')
+            }).select('-createdAt -updatedAt -__v -category')
+                .populate('user', 'name -_id')
             return res.status(200).json({ article, blogCategory })
         }
         else if (type == 'user' || type == 'doctor' || type == 'pharmacist') {
@@ -94,22 +97,25 @@ export const searchData = async (req: Request, res: Response) => {
                 $or: [
                     { title: { $regex: keyword, $options: 'i' } },
                 ]
-            }).select('-createdAt -updatedAt -__v')
+            }).select('-createdAt -updatedAt -__v -category')
+                .populate('user', 'name -_id')
             user = await User.find({
                 $or: [
                     { name: { $regex: keyword, $options: 'i' } }
                 ]
-            }).select('-createdAt -updatedAt -__v')
+            }).select('-createdAt -updatedAt -__v -password -email')
             pharmacist = await Pharmacist.find({
                 $or: [
                     { name: { $regex: keyword, $options: 'i' } }
                 ]
-            }).select('-createdAt -updatedAt -__v')
+            }).select('-createdAt -updatedAt -__v -password -email')
             doctor = await Doctor.find({
                 $or: [
                     { name: { $regex: keyword, $options: 'i' } }
                 ]
-            }).select('-createdAt -updatedAt -__v')
+            })
+                .select('-createdAt -updatedAt -__v -password -email')
+
             return res.status(200).json({ product, storeCategory, article, blogCategory, user, doctor, pharmacist })
         }
     } catch (error: any) {

@@ -5,10 +5,13 @@ export const createSearchData = async (data: string, type: string) => {
     const promises = newData.map(async (keyword) => {
         if (keyword.length >= 4) {
             try {
-                await SearchModel.create({
-                    keyword,
-                    type: type
-                });
+                const search = await SearchModel.findOne({ keyword: keyword, type: type });
+                if (!search) {
+                    await SearchModel.create({
+                        keyword,
+                        type: type
+                    });
+                }
             } catch (error) {
                 console.error(`Error creating search data for keyword "${keyword}":`, error);
             }
