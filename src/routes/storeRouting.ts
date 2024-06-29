@@ -1,9 +1,26 @@
 import express from 'express';
 import { protectionAuth } from '../middlewares/verifyAuth';
 import { upload } from '../middlewares/upload';
-import { createStoreCategory, deleteStoreCategory, fetchStoreCategory, fetchStoreCategorys, updateStoreCategory } from '../controllers/Store/StoreCategoryController';
-import { createStoreProduct, deleteStoreProduct, fetchProductByCategoryId, fetchStoreProduct, fetchStoreProducts, updateStoreProduct } from '../controllers/Store/StoreProduct';
-import { createStoreCart, deleteStoreCart, fetchStoreCarts } from '../controllers/Store/StoreCartController';
+import {
+    createStoreCategory,
+    deleteStoreCategory,
+    fetchStoreCategory,
+    fetchStoreCategorys,
+    updateStoreCategory
+} from '../controllers/Store/StoreCategoryController';
+import {
+    createStoreProduct,
+    deleteStoreProduct,
+    fetchProductByCategoryId,
+    fetchStoreProduct,
+    fetchStoreProducts,
+    updateStoreProduct
+} from '../controllers/Store/StoreProduct';
+import {
+    createStoreCart,
+    deleteStoreCart,
+    fetchStoreCarts
+} from '../controllers/Store/StoreCartController';
 
 const router = express.Router();
 

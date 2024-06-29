@@ -13,7 +13,12 @@ import certificationRouter from './src/routes/certificationRouting'
 import notificationRouter from './src/routes/notificationRouting'
 import storeRouter from './src/routes/storeRouting'
 import searchRouter from './src/routes/searchRouting'
+import chatRouter from './src/routes/chatRouting'
+import http from 'http'
 import cors from 'cors'
+import socketIO from './src/middlewares/socketIO';
+
+
 // create app
 const app = express();
 
@@ -43,6 +48,7 @@ app.use('/api', certificationRouter)
 app.use('/api', notificationRouter)
 app.use('/api', storeRouter)
 app.use('/api', searchRouter)
+app.use('/api', chatRouter)
 
 
 //not found 
@@ -55,6 +61,8 @@ app.use("*", (req, res) => {
 connectDB(process.env.DATABASE_URL as string)
 // listen app
 const port = process.env.PORT || 5001
-app.listen(port, () => {
-    console.log('http://localhost:' + port)
+const server = http.createServer(app)
+server.listen(port, () => {
+    console.log(`server run at ${port}`);
 })
+socketIO(server)

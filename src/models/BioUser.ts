@@ -10,12 +10,7 @@ const bioSchema = new mongoose.Schema({
             link: String
         }
     ],
-    // skills: [
-    //     {
-    //         skill: String,
-    //         level: String
-    //     }
-    // ],
+
     location: {
         type: String,
     },
