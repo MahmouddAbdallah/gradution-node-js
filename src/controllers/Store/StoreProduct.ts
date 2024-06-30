@@ -97,7 +97,7 @@ export const fetchStoreProduct = async (req: Request, res: Response) => {
         const { id } = req.params;
         const product = await StoreProduct
             .findById(id)
-            .populate("pharmacist", 'name picture')
+        // .populate("pharmacist", 'name picture')
         if (!product) return res.status(404).json({
             message: "Product Not Found!"
         })

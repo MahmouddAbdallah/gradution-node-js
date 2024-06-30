@@ -157,7 +157,7 @@ export const signIn = async (req: Request, res: Response) => {
                 token,
                 {
                     httpOnly: true,
-                    sameSite: 'none',
+                    // sameSite: 'none',
                     secure: process.env.NODE_ENV == 'production',
                     maxAge: 22089963090
                 }).json({

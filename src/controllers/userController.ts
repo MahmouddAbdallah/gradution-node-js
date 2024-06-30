@@ -108,6 +108,30 @@ export const fetchUserOrDoctorOrPharmacist = async (req: Request, res: Response)
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
+
+export const fetchPharmacist = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const doctorApi = new FeatureApI(req, Pharmacist)
+            .findById(id)
+            .field()
+            .field('-password -__v')
+            .sort()
+            .limit()
+            .search()
+        const pharmacist = await doctorApi.model
+
+        if (pharmacist) {
+            return res.status(200).json({ pharmacist })
+        } else {
+            return res.status(400).json({ message: 'This account is not exist' })
+        }
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
+
+
 export const fetchDoctors = async (req: Request, res: Response) => {
     try {
         const doctorApi = new FeatureApI(req, Doctor)
