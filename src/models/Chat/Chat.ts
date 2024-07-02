@@ -1,18 +1,6 @@
 import mongoose from "mongoose";
 
 const chatSchema = new mongoose.Schema({
-    // users: [
-    //     {
-    //         userType: {
-    //             type: String,
-    //             enum: ['User', 'Pharmacist', 'Doctor']
-    //         },
-    //         user: {
-    //             type: mongoose.Schema.ObjectId,
-    //             refPath: "userType"
-    //         }
-    //     }
-    // ],
     receiverType: {
         type: String,
         enum: ['User', 'Pharmacist', 'Doctor'],

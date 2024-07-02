@@ -29,7 +29,6 @@ export const searchData = async (req: Request, res: Response) => {
     try {
         const { type, keyword } = req.query;
         let product, storeCategory, article, blogCategory, user, doctor, pharmacist: any = {}
-        let userBio, doctorBio, pharmacistBio: any = {}
         if (!keyword) {
             return res.status(400).json({ message: 'Please enter keyword' })
         }

@@ -54,6 +54,8 @@ export const fetchStoreCarts = async (req: Request, res: Response) => {
             .field()
             .populate('product', 'title imgs')
         const carts = await cartApi.model;
+        console.log(carts);
+
         return res.status(200).json({ carts })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
