@@ -31,7 +31,8 @@ export const createMessage = async (req: Request, res: Response) => {
         role = `${role.split('')[0].toUpperCase()}${role.slice(1)}`
         if (chat) {
             await Chat.findByIdAndUpdate(chat._id, {
-                lastMessage: text
+                lastMessage: text,
+                updatedAt: Date.now()
             }, { new: true });
             if (!chat) return res.status(400).json({ message: "This chatId is invaild!" })
             const message = await Message.create({
@@ -72,6 +73,8 @@ export const fetchMessages = async (req: Request, res: Response) => {
             .field("-__v -updatedAt")
             .sort()
             .limit()
+        console.log(req.query.sort);
+
         const messages = await classApi.model
         if (!messages) return res.status(400).json({ message: "this chat not found" })
         return res.status(200).json({ messages })
@@ -82,9 +85,6 @@ export const fetchMessages = async (req: Request, res: Response) => {
 
 export const fetchChats = async (req: Request, res: Response) => {
     try {
-
-
-
         const user = req.user;
         const classApi = new FeatureApI(req, Chat)
             .filter()
@@ -94,6 +94,7 @@ export const fetchChats = async (req: Request, res: Response) => {
                     { sender: user._id }
                 ]
             })
+            .sort()
             .limit()
         const chats = await classApi.model
         if (!chats) return res.status(400).json({ message: "this chat not found" })
@@ -104,8 +105,6 @@ export const fetchChats = async (req: Request, res: Response) => {
                 const senderId = JSON.stringify(item.sender)
                 if (userId == senderId) {
                     const user = await findByRole(item.receiver, item.receiverType)
-                    console.log({ rec: item.receiver, role: item.receiverType });
-
                     return {
                         _id: item._id,
                         user,
@@ -123,6 +122,39 @@ export const fetchChats = async (req: Request, res: Response) => {
             }
         ))
         return res.status(200).json({ chats: await newChat })
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
+export const fetchChat = async (req: Request, res: Response) => {
+    try {
+        const user = req.user;
+        const { chatId } = req.params
+
+        // const newChat = async (chatId: string) => {
+        const chat = await Chat.findById(chatId);
+        if (!chat) {
+            return res.status(400).json({ message: "This chat not found" });
+        }
+
+        const userId = user._id.toString();
+        const senderId = chat.sender?.toString();
+
+        let chatUser;
+        if (userId === senderId) {
+            chatUser = await findByRole(chat.receiver, chat.receiverType);
+        } else {
+            chatUser = await findByRole(chat.sender, chat.senderType);
+        }
+
+        return res.status(200).json({
+            _id: chat._id,
+            user: chatUser,
+            lastMessage: chat.lastMessage,
+        });
+        // };
+
+        // return res.status(200).json({ chats: await newChat })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }

@@ -19,7 +19,8 @@ import {
 import {
     createStoreCart,
     deleteStoreCart,
-    fetchStoreCarts
+    fetchStoreCarts,
+    fetchStoreCartsCount
 } from '../controllers/Store/StoreCartController';
 
 const router = express.Router();
@@ -45,6 +46,9 @@ router.route('/store/product/:id')
 router.route('/store/cart')
     .post(protectionAuth, createStoreCart)
     .get(protectionAuth, fetchStoreCarts)
+
+router.get('/store/cart/count', protectionAuth, fetchStoreCartsCount)
+
 router.route('/store/cart/:id')
     .post(protectionAuth, deleteStoreCart)
 

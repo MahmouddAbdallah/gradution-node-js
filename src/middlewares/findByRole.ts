@@ -2,7 +2,7 @@ import Doctor from "../models/Doctor";
 import Pharmacist from "../models/Pharmacist";
 import User from "../models/User";
 
-const findByRole = async (id: string, role: string) => {
+const findByRole = async (id: any, role: string) => {
     try {
         const roleLow = role.toLocaleLowerCase()
         let user: any = {};

@@ -16,12 +16,16 @@ const socketIO = (server: any) => {
         socket.on('send-msg', (data: {
             senderId: string,
             receiverId: string,
-            message: any
+            message: any,
+            chat?: any
         }) => {
             const receiverId = data.receiverId;
             const userOnline = global.get(receiverId);
             if (userOnline) {
-                socket.to(userOnline).emit('msg-receive', data.message);
+                if (data.chat) {
+                    socket.to(userOnline).emit('msg-receive', { message: data.message, chat: data.chat });
+                }
+                else socket.to(userOnline).emit('msg-receive', { message: data.message });
             }
         });
     });

@@ -9,19 +9,30 @@ export const createStoreCart = async (req: Request, res: Response) => {
 
         let role = req.role;
         role = `${role.split('')[0].toUpperCase()}${role.slice(1)}`
-
-        const cart = await StoreCart.create({
-            user: user._id,
-            userType: role,
-            product,
-            quantity,
-            price
+        const isCart = await StoreCart.findOne({
+            product: product
         })
-        return res.status(201).json({ message: "create cart successfully!!", cart })
+        if (isCart) {
+            await StoreCart.findOneAndUpdate({
+                product: product
+            }, { quantity: isCart.quantity + 1 }, { new: true })
+            return res.status(201).json({ message: "Add one more", count: 0 })
+        }
+        else {
+            await StoreCart.create({
+                user: user._id,
+                userType: role,
+                product,
+                quantity,
+                price
+            })
+            return res.status(201).json({ message: "create cart successfully!!", count: 1 })
+        }
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
+
 export const deleteStoreCart = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
@@ -40,9 +51,18 @@ export const fetchStoreCarts = async (req: Request, res: Response) => {
             .skip()
             .limit()
             .search()
-
+            .field()
+            .populate('product', 'title imgs')
         const carts = await cartApi.model;
         return res.status(200).json({ carts })
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
+export const fetchStoreCartsCount = async (req: Request, res: Response) => {
+    try {
+        const counts = await StoreCart.countDocuments({ user: req.user._id })
+        return res.status(200).json({ counts })
     } catch (error: any) {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }

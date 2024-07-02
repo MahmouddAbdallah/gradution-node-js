@@ -13,7 +13,11 @@ import certificationRouter from './src/routes/certificationRouting'
 import notificationRouter from './src/routes/notificationRouting'
 import storeRouter from './src/routes/storeRouting'
 import searchRouter from './src/routes/searchRouting'
+import waterRouter from './src/routes/waterRouting'
 import chatRouter from './src/routes/chatRouting'
+import foodNoteRouter from './src/routes/foodNoteRouting'
+import communityRouter from './src/routes/communityRouting'
+import logout from './src/routes/logout'
 import http from 'http'
 import cors from 'cors'
 import socketIO from './src/middlewares/socketIO';
@@ -49,6 +53,10 @@ app.use('/api', notificationRouter)
 app.use('/api', storeRouter)
 app.use('/api', searchRouter)
 app.use('/api', chatRouter)
+app.use('/api', waterRouter)
+app.use('/api', foodNoteRouter)
+app.use('/api', communityRouter)
+app.use('/api', logout)
 
 
 //not found 

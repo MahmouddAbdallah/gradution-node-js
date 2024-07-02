@@ -20,7 +20,8 @@ const chatSchema = new mongoose.Schema({
     },
     receiver: {
         type: mongoose.Schema.ObjectId,
-        refPath: "receiverType"
+        refPath: "receiverType",
+        require: true
     },
     senderType: {
         type: String,
@@ -29,7 +30,8 @@ const chatSchema = new mongoose.Schema({
     },
     sender: {
         type: mongoose.Schema.ObjectId,
-        refPath: "senderType"
+        refPath: "senderType",
+        require: true
     },
     lastMessage: {
         type: String,
