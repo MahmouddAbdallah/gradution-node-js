@@ -30,3 +30,12 @@ export const addFollow = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'There is Error', error: error.message })
     }
 }
+export const followNumber = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.query;
+        const followNumber = await Follow.countDocuments({ follower: userId });
+        return res.status(200).json({ followNumber })
+    } catch (error: any) {
+        return res.status(400).json({ message: 'There is Error', error: error.message })
+    }
+}
