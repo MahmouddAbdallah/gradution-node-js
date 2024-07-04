@@ -1,0 +1,1 @@
+import{k as e,j as r}from"./index-BMh66HCr.js";const t=({message:s})=>r.jsx("div",{children:r.jsx("span",{className:"text-red-500 text-sm font-medium",children:s||""})});t.propTypes={message:e.string};export{t as E};

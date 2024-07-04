@@ -21,7 +21,7 @@ import logout from './src/routes/logout'
 import http from 'http'
 import cors from 'cors'
 import socketIO from './src/middlewares/socketIO';
-
+import path from 'path'
 
 // create app
 const app = express();
@@ -57,8 +57,10 @@ app.use('/api', waterRouter)
 app.use('/api', foodNoteRouter)
 app.use('/api', communityRouter)
 app.use('/api', logout)
-
-
+app.use(express.static(path.join(__dirname, './frontend')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './frontend', 'index.html'));
+});
 //not found 
 app.use("*", (req, res) => {
     res.status(404).json({ message: "This URL is not founded!" })
