@@ -57,6 +57,7 @@ app.use('/api', waterRouter)
 app.use('/api', foodNoteRouter)
 app.use('/api', communityRouter)
 app.use('/api', logout)
+
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
